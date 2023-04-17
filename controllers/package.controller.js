@@ -4,6 +4,7 @@ const {
   updateByIdPackageService,
   getPackageByIdService,
   getPackagesService,
+  bulkDeletePackageService,
 } = require("../services/package.service");
 
 exports.createPackages = async (req, res, next) => {
@@ -114,6 +115,22 @@ exports.updatePackageById = async (req, res, next) => {
     res.status(400).json({
       status: "failed",
       message: "data updated failed",
+      error: error.message,
+    });
+  }
+};
+
+exports.bulkDeletePackage = async (req, res) => {
+  try {
+    const result = await bulkDeletePackageService(req.body.ids);
+    res.status(200).json({
+      status: "Success",
+      message: "Successfully Deleted the given Products",
+    });
+  } catch (error) {
+    res.status(400).json({
+      status: "fail",
+      message: "Couldn't Deleted the given Products",
       error: error.message,
     });
   }

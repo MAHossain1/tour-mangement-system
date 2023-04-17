@@ -1,4 +1,5 @@
 const Package = require("../models/Package");
+const tourPackage = require("../data/tourPackage.json");
 
 exports.createPackagesService = async () => {
   const packages = [];
@@ -34,7 +35,12 @@ exports.createAPackageService = async data => {
 
 exports.getPackageByIdService = async tourId => {
   const result = await Package.findOne({ _id: tourId });
-  return result;
+  const updatedPackage = await Package.findByIdAndUpdate(
+    tourId,
+    { $inc: { view_count: 1 } },
+    { new: true }
+  );
+  return { result, updatedPackage };
 };
 
 exports.updateByIdPackageService = async (tourId, data) => {
@@ -43,5 +49,10 @@ exports.updateByIdPackageService = async (tourId, data) => {
     { $set: data },
     { runValidators: true }
   );
+  return result;
+};
+
+exports.bulkDeletePackageService = async () => {
+  const result = await Package.deleteMany({});
   return result;
 };

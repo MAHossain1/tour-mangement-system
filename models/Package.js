@@ -37,6 +37,7 @@ const packageSchema = mongoose.Schema(
     },
     view_count: {
       type: Number,
+      default: 0,
       required: true,
     },
     createdAt: {
