@@ -15,3 +15,12 @@ exports.createAPackageService = async data => {
   const result = await Package.create(data);
   return result;
 };
+
+exports.updateAPackageService = async (tourId, data) => {
+  const result = await Package.updateOne(
+    { _id: tourId },
+    { $set: data },
+    { runValidators: true }
+  );
+  return result;
+};
