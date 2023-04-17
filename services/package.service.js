@@ -16,7 +16,12 @@ exports.createAPackageService = async data => {
   return result;
 };
 
-exports.updateAPackageService = async (tourId, data) => {
+exports.getPackageByIdService = async tourId => {
+  const result = await Package.findOne({ _id: tourId });
+  return result;
+};
+
+exports.updateByIdPackageService = async (tourId, data) => {
   const result = await Package.updateOne(
     { _id: tourId },
     { $set: data },

@@ -1,7 +1,8 @@
 const {
   createPackagesService,
   createAPackageService,
-  updateAPackageService,
+  updateByIdPackageService,
+  getPackageByIdService,
 } = require("../services/package.service");
 
 exports.createPackages = async (req, res, next) => {
@@ -38,11 +39,29 @@ exports.createAPackage = async (req, res, next) => {
   }
 };
 
-exports.updateAPackage = async (req, res, next) => {
+exports.getPackageById = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const result = await getPackageByIdService(id);
+    res.status(200).json({
+      status: "success",
+      message: "Data Get successfully",
+      data: result,
+    });
+  } catch (error) {
+    res.status(400).json({
+      status: "failed",
+      message: "data get failed",
+      error: error.message,
+    });
+  }
+};
+
+exports.updatePackageById = async (req, res, next) => {
   try {
     const { id } = req.params;
     console.log(id);
-    const result = await updateAPackageService(id, req.body);
+    const result = await updateByIdPackageService(id, req.body);
     res.status(200).json({
       status: "success",
       message: "Data inserted successfully",
