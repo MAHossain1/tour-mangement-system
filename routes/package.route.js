@@ -5,6 +5,7 @@ const packageController = require("../controllers/package.controller");
 router.route("/bulk-upload").patch(packageController.createPackages);
 router.route("/bulk-delete").delete(packageController.bulkDeletePackage);
 
+router.route("/trending").get(packageController.getPackageByTrending);
 router
   .route("/")
   .get(packageController.getPackages)

@@ -5,6 +5,7 @@ const {
   getPackageByIdService,
   getPackagesService,
   bulkDeletePackageService,
+  getPackageByTrendingService,
 } = require("../services/package.service");
 
 exports.createPackages = async (req, res, next) => {
@@ -87,6 +88,23 @@ exports.getPackageById = async (req, res, next) => {
   try {
     const { id } = req.params;
     const result = await getPackageByIdService(id);
+    res.status(200).json({
+      status: "success",
+      message: "Data Get successfully",
+      data: result,
+    });
+  } catch (error) {
+    res.status(400).json({
+      status: "failed",
+      message: "data get failed",
+      error: error.message,
+    });
+  }
+};
+
+exports.getPackageByTrending = async (req, res) => {
+  try {
+    const result = await getPackageByTrendingService();
     res.status(200).json({
       status: "success",
       message: "Data Get successfully",

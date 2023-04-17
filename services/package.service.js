@@ -43,6 +43,14 @@ exports.getPackageByIdService = async tourId => {
   return { result, updatedPackage };
 };
 
+exports.getPackageByTrendingService = async () => {
+  const trendingPackages = await Package.find({})
+    .sort({ view_count: -1 })
+    .limit(3);
+
+  return trendingPackages;
+};
+
 exports.updateByIdPackageService = async (tourId, data) => {
   const result = await Package.updateOne(
     { _id: tourId },
