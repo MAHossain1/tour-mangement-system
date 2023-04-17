@@ -4,7 +4,11 @@ const packageController = require("../controllers/package.controller");
 
 router.route("/bulk-upload").patch(packageController.createPackages);
 
-router.route("/").post(packageController.createAPackage);
+router
+  .route("/")
+  .get(packageController.getPackages)
+  .post(packageController.createAPackage);
+
 router
   .route("/:id")
   .get(packageController.getPackageById)

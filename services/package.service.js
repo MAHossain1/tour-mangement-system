@@ -11,6 +11,22 @@ exports.createPackagesService = async () => {
   return result;
 };
 
+exports.getPackagesService = async (filters, queries) => {
+  console.log("where?", filters);
+  // console.log(queries.fields);
+
+  const packages = await Package.find(filters)
+    .skip(queries.skip)
+    .limit(queries.limit)
+    .select(queries.fields)
+    .sort(queries.sortBy);
+
+  const totalPackage = await Package.countDocuments(filters);
+  const page = Math.ceil(totalPackage / queries.limit);
+
+  return { totalPackage, page, packages };
+};
+
 exports.createAPackageService = async data => {
   const result = await Package.create(data);
   return result;
