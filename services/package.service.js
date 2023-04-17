@@ -51,6 +51,11 @@ exports.getPackageByTrendingService = async () => {
   return trendingPackages;
 };
 
+exports.getPackageByCheapRateService = async () => {
+  const cheapestPackage = await Package.find({}).sort({ price: 1 }).limit(3);
+  return cheapestPackage;
+};
+
 exports.updateByIdPackageService = async (tourId, data) => {
   const result = await Package.updateOne(
     { _id: tourId },
